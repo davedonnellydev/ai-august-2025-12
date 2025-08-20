@@ -1,6 +1,5 @@
 ---
-description: Describes the project's overall purpose and aims
-globs:
+description: Describes the project's overall purpose and objectives
 alwaysApply: false
 ---
 The purpose of this app is for a user to be able to provide code and get an AI explanation in plain English that is understandable to a lay person. It should have the following features:
