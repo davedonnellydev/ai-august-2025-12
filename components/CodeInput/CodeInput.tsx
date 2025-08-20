@@ -343,7 +343,7 @@ export function CodeInput() {
       }
 
       const result = await response.json();
-      setAnalysisResult(result);
+      setAnalysisResult(result.response);
       setShowResults(true);
 
       // Update remaining requests after successful analysis
@@ -492,6 +492,20 @@ export function CodeInput() {
   };
 
   if (showResults && analysisResult) {
+    // Additional validation before rendering results
+    if (
+      !analysisResult.summary ||
+      !analysisResult.lineByLine ||
+      !analysisResult.furtherReading
+    ) {
+      console.warn('Invalid analysis result structure:', analysisResult);
+      // Reset to input if data is invalid
+      setShowResults(false);
+      setAnalysisResult(null);
+      setError('Analysis result is incomplete. Please try again.');
+      return null;
+    }
+
     return (
       <CodeResults
         analysisResult={analysisResult}
