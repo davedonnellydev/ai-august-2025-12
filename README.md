@@ -1,26 +1,31 @@
 # Project 12 #AIAugustAppADay: AI Code Explainer
 
-![Last Commit](https://img.shields.io/github/last-commit/davedonnellydev/ai-august-2025-12)
+![Last Commit](https://img.shields.io/github/last-commit/davedonnellydev/ai-august-2025-12)  
 
 **📆 Date**: 20/Aug/2025  
 **🎯 Project Objective**: Paste code, get an AI explanation in plain English.  
 **🚀 Features**: User can paste or upload code; App detects language; gives a line by line breakdown as well as a summary of what the code is doing.  
 **🛠️ Tech used**: Next.js, TypeScript, Mantine UI, OpenAI APIs  
-**▶️ Live Demo**: _[https://your-demo-url.com](https://your-demo-url.com)_  
-_(Link will be added after deployment)_
+**▶️ Live Demo**: [https://ai-august-2025-12.netlify.app/](https://ai-august-2025-12.netlify.app/)  
 
 ## 🗒️ Summary
 
-**Lessons learned**  
-_A little summary of learnings_
+The goal of this project was to make code easier to understand. Users could either paste or upload a piece of code, and AI would then analyse it and explain what it does, why it’s used, and in what context.  
 
-**Blockers**  
-_Note any blockers here_
+As sometimes happens, I got caught in the weeds. Instead of focusing on the AI integration, I found myself stuck designing the input screen on the fly. Specifically, I spent far too long hunting for libraries that could auto-detect the programming language as the user typed or uploaded their code. While I eventually got that piece working, it ate up so much time that I couldn’t refine the AI’s explanations to be as user-friendly and clear as I’d hoped.  
+
+So, while the AI analysis *does* work, it’s fairly barebones in this version. This project ended up being less about building features and more about learning a hard lesson in time management.  
+
+**Lessons learned**  
+- Plan before you build — designing while coding often leads to getting stuck in the details.  
+- Focus on the core value (in this case, the AI explanation) before polishing supporting features.  
+- Timeboxing experiments (like searching for libraries) helps keep the project moving.  
 
 **Final thoughts**  
-_Any final thoughts here_
+Not every project hits the level you want it to, and that’s okay. This one reminded me that prioritisation and time discipline are just as important as technical skills when building quickly.  
 
-This project has been built as part of my AI August App-A-Day Challenge. You can read more information on the full project here: [https://github.com/davedonnellydev/ai-august-2025-challenge](https://github.com/davedonnellydev/ai-august-2025-challenge).
+
+This project has been built as part of my AI August App-A-Day Challenge. You can read more information on the full project here: [https://github.com/davedonnellydev/ai-august-2025-challenge](https://github.com/davedonnellydev/ai-august-2025-challenge).  
 
 ## 🧪 Testing
 
