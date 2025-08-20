@@ -493,7 +493,11 @@ export function CodeInput() {
 
   if (showResults && analysisResult) {
     // Additional validation before rendering results
-    if (!analysisResult.summary || !analysisResult.lineByLine || !analysisResult.furtherReading) {
+    if (
+      !analysisResult.summary ||
+      !analysisResult.lineByLine ||
+      !analysisResult.furtherReading
+    ) {
       console.warn('Invalid analysis result structure:', analysisResult);
       // Reset to input if data is invalid
       setShowResults(false);
@@ -501,7 +505,7 @@ export function CodeInput() {
       setError('Analysis result is incomplete. Please try again.');
       return null;
     }
-    
+
     return (
       <CodeResults
         analysisResult={analysisResult}

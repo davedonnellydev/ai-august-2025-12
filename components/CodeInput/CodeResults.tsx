@@ -33,41 +33,48 @@ export function CodeResults({
   analysisResult,
   onBackToInput,
 }: CodeResultsProps) {
-    
-    console.log('CodeResults - analysisResult:', analysisResult);
-    console.log('CodeResults - lineByLine:', analysisResult?.lineByLine);
-    console.log('CodeResults - furtherReading:', analysisResult?.furtherReading);
+  console.log('CodeResults - analysisResult:', analysisResult);
+  console.log('CodeResults - lineByLine:', analysisResult?.lineByLine);
+  console.log('CodeResults - furtherReading:', analysisResult?.furtherReading);
 
-    // Validate that we have a valid analysis result
-    if (!analysisResult) {
-      return (
-        <div className={classes.resultsContainer}>
-          <Text c="red">No analysis result available</Text>
-          <Button variant="light" onClick={onBackToInput} mt="md">
-            Back to Input
-          </Button>
-        </div>
-      );
-    }
+  // Validate that we have a valid analysis result
+  if (!analysisResult) {
+    return (
+      <div className={classes.resultsContainer}>
+        <Text c="red">No analysis result available</Text>
+        <Button variant="light" onClick={onBackToInput} mt="md">
+          Back to Input
+        </Button>
+      </div>
+    );
+  }
 
-    // Additional validation for required fields
-    if (!analysisResult.summary || !analysisResult.lineByLine || !analysisResult.furtherReading) {
-      console.warn('Analysis result missing required fields:', analysisResult);
-      return (
-        <div className={classes.resultsContainer}>
-          <Text c="orange" mb="md">Analysis completed but some data is missing or incomplete.</Text>
-          {analysisResult.summary && (
-            <Paper withBorder p="md" mb="md">
-              <Title order={3} mb="sm">Summary</Title>
-              <Text>{analysisResult.summary}</Text>
-            </Paper>
-          )}
-          <Button variant="light" onClick={onBackToInput} mt="md">
-            Try Again
-          </Button>
-        </div>
-      );
-    }
+  // Additional validation for required fields
+  if (
+    !analysisResult.summary ||
+    !analysisResult.lineByLine ||
+    !analysisResult.furtherReading
+  ) {
+    console.warn('Analysis result missing required fields:', analysisResult);
+    return (
+      <div className={classes.resultsContainer}>
+        <Text c="orange" mb="md">
+          Analysis completed but some data is missing or incomplete.
+        </Text>
+        {analysisResult.summary && (
+          <Paper withBorder p="md" mb="md">
+            <Title order={3} mb="sm">
+              Summary
+            </Title>
+            <Text>{analysisResult.summary}</Text>
+          </Paper>
+        )}
+        <Button variant="light" onClick={onBackToInput} mt="md">
+          Try Again
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className={classes.resultsContainer}>
@@ -139,7 +146,8 @@ export function CodeResults({
           Further Reading
         </Title>
         <Stack gap="xs">
-          {analysisResult.furtherReading && analysisResult.furtherReading.length > 0 ? (
+          {analysisResult.furtherReading &&
+          analysisResult.furtherReading.length > 0 ? (
             analysisResult.furtherReading.map((link, index) => (
               <a
                 key={index}
