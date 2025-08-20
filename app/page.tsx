@@ -1,9 +1,8 @@
-import { Welcome } from '../components/Welcome/Welcome';
-
+import { CodeInput } from '../components/CodeInput/CodeInput';
 export default function HomePage() {
   return (
-    <>
-      <Welcome />
-    </>
+    <main>
+      <CodeInput />
+    </main>
   );
 }

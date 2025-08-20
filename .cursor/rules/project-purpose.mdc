@@ -1,0 +1,12 @@
+---
+description: Describes the project's overall purpose and aims
+globs:
+alwaysApply: false
+---
+The purpose of this app is for a user to be able to provide code and get an AI explanation in plain English that is understandable to a lay person. It should have the following features:
+- User can paste blocks of code OR upload code files 
+- App detects code language
+- User submits code and:
+    - App gives a line-by-line breakdown of what each line of code is doing 
+    - App gives a summary of how the full block of code/code file
+    - App also gives some additional links for 'further reading' for the user
