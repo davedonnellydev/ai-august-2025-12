@@ -1,0 +1,182 @@
+.title {
+  font-family: 'Greycliff CF', var(--mantine-font-family);
+  font-weight: 900;
+}
+
+.codeContainer {
+  background-color: var(--mantine-color-gray-0);
+  border: 1px solid var(--mantine-color-gray-3);
+}
+
+.codeHeader {
+  padding: var(--mantine-spacing-md);
+  border-bottom: 1px solid var(--mantine-color-gray-3);
+  background-color: var(--mantine-color-gray-1);
+}
+
+.codeGrid {
+  padding: var(--mantine-spacing-md);
+}
+
+.textareaContainer {
+  height: 100%;
+}
+
+.plainTextarea {
+  height: 100%;
+}
+
+.plainTextarea :global(.mantine-Textarea-input) {
+  border: 1px solid var(--mantine-color-gray-3);
+  border-radius: var(--mantine-radius-sm);
+  background-color: var(--mantine-color-white);
+  font-family: Monaco, Menlo, 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: var(--mantine-spacing-sm);
+  resize: none;
+  min-height: 400px;
+}
+
+.codeBlockContainer {
+  height: 100%;
+}
+
+.codeBlockWrapper {
+  border: 1px solid var(--mantine-color-gray-3);
+  border-radius: var(--mantine-radius-sm);
+  background-color: var(--mantine-color-white);
+  min-height: 400px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.emptyCodeBlock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background-color: var(--mantine-color-gray-0);
+  border-radius: var(--mantine-radius-sm);
+}
+
+/* Legacy styles - keeping for backward compatibility */
+.codeEditor {
+  display: flex;
+  position: relative;
+  min-height: 300px;
+}
+
+.lineNumbers {
+  background-color: var(--mantine-color-gray-2);
+  border-right: 1px solid var(--mantine-color-gray-3);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-xs);
+  text-align: right;
+  user-select: none;
+  min-width: 50px;
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--mantine-color-gray-6);
+}
+
+.lineNumber {
+  line-height: 1.5;
+  padding: 0 var(--mantine-spacing-xs);
+}
+
+.codeTextarea {
+  flex: 1;
+  border: none;
+  outline: none;
+}
+
+.codeTextarea :global(.mantine-Textarea-input) {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-family: Monaco, Menlo, 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: var(--mantine-spacing-sm);
+  resize: none;
+  min-height: 300px;
+}
+
+.resultsContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.lineBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-xs);
+}
+
+.lineItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mantine-spacing-sm);
+  padding: var(--mantine-spacing-xs);
+  border-radius: var(--mantine-radius-sm);
+  background-color: var(--mantine-color-gray-0);
+}
+
+.lineNumberBadge {
+  flex-shrink: 0;
+  min-width: 30px;
+  justify-content: center;
+}
+
+.lineExplanation {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.readingLink {
+  display: block;
+  text-decoration: none;
+  padding: var(--mantine-spacing-sm);
+  border-radius: var(--mantine-radius-sm);
+  transition: background-color 0.2s ease;
+}
+
+.readingLink:hover {
+  background-color: var(--mantine-color-gray-0);
+  text-decoration: none;
+}
+
+/* File upload styling */
+.fileUploadSection {
+  border: 2px dashed var(--mantine-color-gray-3);
+  border-radius: var(--mantine-radius-md);
+  padding: var(--mantine-spacing-lg);
+  text-align: center;
+  transition: border-color 0.2s ease;
+}
+
+.fileUploadSection:hover {
+  border-color: var(--mantine-color-blue-4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .codeGrid {
+    flex-direction: column;
+  }
+
+  .textareaContainer,
+  .codeBlockContainer {
+    margin-bottom: var(--mantine-spacing-md);
+  }
+
+  .plainTextarea :global(.mantine-Textarea-input),
+  .codeBlockWrapper {
+    min-height: 300px;
+  }
+
+  .emptyCodeBlock {
+    height: 300px;
+  }
+}

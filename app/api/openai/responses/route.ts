@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { MODEL } from '@/app/config/constants';
-import { InputValidator, ServerRateLimiter } from '@/app/lib/utils/api-helpers';
+import { ServerRateLimiter } from '@/app/lib/utils/api-helpers';
+import { zodTextFormat } from 'openai/helpers/zod';
+import { z } from 'zod';
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,16 +21,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { input } = await request.json();
-
-    // Enhanced validation
-    const textValidation = InputValidator.validateText(input, 2000);
-    if (!textValidation.isValid) {
-      return NextResponse.json(
-        { error: textValidation.error },
-        { status: 400 }
-      );
-    }
+    const { code, language } = await request.json();
 
     // Environment validation
     const apiKey = process.env.OPENAI_API_KEY;
@@ -44,33 +37,42 @@ export async function POST(request: NextRequest) {
       apiKey,
     });
 
-    // Enhanced content moderation
-    const moderatedText = await client.moderations.create({
-      input,
+    const LineSummary = z.object({
+      lineStart: z.number(),
+      lineEnd: z.number(),
+      lineText: z.string(),
+      lineExplanation: z.string(),
     });
 
-    const { flagged, categories } = moderatedText.results[0];
+    const FurtherReadingArticle = z.object({
+      title: z.string(),
+      url: z.string(),
+      description: z.string(),
+    });
 
-    if (flagged) {
-      const keys: string[] = Object.keys(categories);
-      const flaggedCategories = keys.filter(
-        (key: string) => categories[key as keyof typeof categories]
-      );
-      return NextResponse.json(
-        {
-          error: `Content flagged as inappropriate: ${flaggedCategories.join(', ')}`,
-        },
-        { status: 400 }
-      );
-    }
+    const CodeFeedback = z.object({
+      analyzedLanguage: z.string(),
+      summary: z.string(),
+      context: z.string(),
+      lineByLine: z.array(LineSummary),
+      furtherReading: z.array(FurtherReadingArticle),
+    });
 
-    const instructions: string =
-      'You are a helpful assistant who knows general knowledge about the world. Keep your responses to one or two sentances, maximum.';
+    const instructions: string = `You are an expert in all programming languages. You will be given some code by the user and your role is to provide a summary of what the purpose of the code is, as well as what each line of code does. If it's possible to provide context around where this code is most often used, or industry standard ways of making the code better, please also do that. Provide feedback within the format supplied.`;
 
-    const response = await client.responses.create({
+    const input: string = `I've provided some code between the '###' characters below:
+    ###
+    ${code}
+    ###
+    I believe it is written in ${language}, so please explain the code with that context, but if I'm incorrect, please explain the code based on what context you think it's written within.`;
+
+    const response = await client.responses.parse({
       model: MODEL,
       instructions,
       input,
+      text: {
+        format: zodTextFormat(CodeFeedback, 'code_feedback'),
+      },
     });
 
     if (response.status !== 'completed') {
@@ -78,8 +80,9 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({
-      response: response.output_text || 'Response recieved',
-      originalInput: input,
+      response: response.output_parsed,
+      originalLanguage: language,
+      originalCode: code,
       remainingRequests: ServerRateLimiter.getRemaining(ip),
     });
   } catch (error) {
