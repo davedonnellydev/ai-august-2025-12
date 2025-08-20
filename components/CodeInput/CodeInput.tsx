@@ -28,7 +28,7 @@ import {
 } from '@tabler/icons-react';
 import { ClientRateLimiter } from '@/app/lib/utils/api-helpers';
 import classes from './CodeInput.module.css';
-import { CodeResults } from './CodeResults';
+import { CodeResults, CodeAnalysisResult } from './CodeResults';
 
 // Register highlight.js languages
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -141,12 +141,6 @@ const SUPPORTED_LANGUAGES: SupportedLanguage[] = [
   { value: 'markdown', label: 'Markdown' },
   { value: 'graphql', label: 'GraphQL' },
 ];
-
-interface CodeAnalysisResult {
-  lineByLine: Array<{ line: number; explanation: string }>;
-  summary: string;
-  furtherReading: Array<{ title: string; url: string; description: string }>;
-}
 
 export function CodeInput() {
   const [code, setCode] = useState('');
@@ -272,7 +266,7 @@ export function CodeInput() {
         console.log(parserPlugin);
 
         if (parserPlugin) {
-            console.log("has parser")
+          console.log('has parser');
 
           const pretty = await format(code, {
             parser: prettierConfigByLang[activeLang].parser,
@@ -283,7 +277,7 @@ export function CodeInput() {
           });
           setFormattedCode(pretty);
         } else {
-            console.log("doesn't have parser")
+          console.log("doesn't have parser");
           // For languages without plugins or built-in parsers
           const pretty = await format(code, {
             parser: prettierConfigByLang[activeLang].parser,

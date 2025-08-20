@@ -4,22 +4,22 @@ import { Button, Text, Title, Group, Stack, Paper, Badge } from '@mantine/core';
 import classes from './CodeInput.module.css';
 
 interface LineSummary {
-    lineStart: number;
-    lineEnd: number;
-    lineText: string;
-    lineExplanation: string;
+  lineStart: number;
+  lineEnd: number;
+  lineText: string;
+  lineExplanation: string;
 }
 
 interface FurtherReadingArticle {
-    title: string;
-    url: string;
-    description: string;
+  title: string;
+  url: string;
+  description: string;
 }
 
-interface CodeAnalysisResult {
-    analyzedLanguage: string;
-    summary: string;
-    context: string;
+export interface CodeAnalysisResult {
+  analyzedLanguage: string;
+  summary: string;
+  context: string;
   lineByLine: Array<LineSummary>;
   furtherReading: Array<FurtherReadingArticle>;
 }

@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { MODEL } from '@/app/config/constants';
 import { ServerRateLimiter } from '@/app/lib/utils/api-helpers';
-import { zodTextFormat } from "openai/helpers/zod";
-import { z } from "zod";
+import { zodTextFormat } from 'openai/helpers/zod';
+import { z } from 'zod';
 
 export async function POST(request: NextRequest) {
   try {
@@ -38,42 +38,41 @@ export async function POST(request: NextRequest) {
     });
 
     const LineSummary = z.object({
-        lineStart: z.number(),
-        lineEnd: z.number(),
-        lineText: z.string(),
-        lineExplanation: z.string()
+      lineStart: z.number(),
+      lineEnd: z.number(),
+      lineText: z.string(),
+      lineExplanation: z.string(),
     });
 
-    const Article = z.object({
-        title: z.string(),
-        url: z.string(),
-        description: z.string()
-    })
+    const FurtherReadingArticle = z.object({
+      title: z.string(),
+      url: z.string(),
+      description: z.string(),
+    });
 
     const CodeFeedback = z.object({
-        language: z.string(),
-        summary: z.string(),
-        lineByLine: z.array(LineSummary),
-        context: z.string(),
-        furtherReading: z.array(Article)
-    })
+      analyzedLanguage: z.string(),
+      summary: z.string(),
+      context: z.string(),
+      lineByLine: z.array(LineSummary),
+      furtherReading: z.array(FurtherReadingArticle),
+    });
 
-    const instructions: string =
-      `You are an expert in all programming languages. You will be given some code by the user and your role is to provide a summary of what the purpose of the code is, as well as what each line of code does. If it's possible to provide context around where this code is most often used, or industry standard ways of making the code better, please also do that. Provide feedback within the format supplied.`;
+    const instructions: string = `You are an expert in all programming languages. You will be given some code by the user and your role is to provide a summary of what the purpose of the code is, as well as what each line of code does. If it's possible to provide context around where this code is most often used, or industry standard ways of making the code better, please also do that. Provide feedback within the format supplied.`;
 
     const input: string = `I've provided some code between the '###' characters below:
     ###
     ${code}
     ###
-    I believe it is written in ${language}, so please explain the code with that context, but if I'm incorrect, please explain the code based on what context you think it's written within.`
+    I believe it is written in ${language}, so please explain the code with that context, but if I'm incorrect, please explain the code based on what context you think it's written within.`;
 
     const response = await client.responses.parse({
       model: MODEL,
       instructions,
       input,
       text: {
-        format: zodTextFormat(CodeFeedback, "code_feedback")
-      }
+        format: zodTextFormat(CodeFeedback, 'code_feedback'),
+      },
     });
 
     if (response.status !== 'completed') {
